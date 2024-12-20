@@ -1,0 +1,33 @@
+on early-init
+    setprop sys.usb.configfs 1
+    insmod /axp803_usb_power.ko
+    insmod /sunxi-inno-combophy.ko
+    insmod /sunxi-hci.ko
+    insmod /ehci-sunxi.ko
+    insmod /ohci-hcd.ko
+    insmod /ohci-sunxi.ko
+    insmod /sunxi_usb_udc.ko
+    insmod /sunxi_usbc.ko
+    insmod /usbserial.ko
+    insmod /usb_wwan.ko
+    insmod /phy-sunxi-plat.ko
+    insmod /dwc3-sunxi-plat.ko
+    insmod /sunxi-lradc.ko
+    insmod /axp2101-pek.ko
+    insmod /hdmi20.ko
+    insmod /init-input.ko
+    insmod /sunxi-direct-gpio.ko
+    insmod /ir-rc5-decoder.ko
+    insmod /ir-nec-decoder.ko
+    insmod /sunxi-ir-rx.ko
+    insmod /sunxi-gpio-ir-recv.ko
+
+on property:ro.debuggable=1
+    start console
+
+service console /system/bin/sh
+    console
+    user root
+    group root shell log readproc
+    seclabel u:r:shell:s0
+    setenv HOSTNAME console
